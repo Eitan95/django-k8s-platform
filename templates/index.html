@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django K8s Platform</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0f172a; color: #f8fafc; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 2rem; width: 100%; max-width: 500px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        h1 { font-size: 1.5rem; font-weight: 600; color: #ffffff; }
+        .badge { background-color: #059669; color: #ecfdf5; font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.75rem; border-radius: 9999px; text-transform: uppercase; }
+        p { color: #94a3b8; line-height: 1.5; margin-bottom: 1rem; }
+        .info-box { background-color: #0f172a; border-radius: 6px; padding: 1rem; margin-top: 1rem; border-left: 4px solid #3b82f6; }
+        .info-box span { display: block; font-size: 0.875rem; color: #cbd5e1; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1>Django Application</h1>
+            <span class="badge">Healthy</span>
+        </div>
+        <p>Service deployed and managed via GitOps pipeline.</p>
+        <div class="info-box">
+            <span>Environment: Kubernetes (Minikube)</span>
+            <span>Orchestrator: ArgoCD</span>
+        </div>
+    </div>
+</body>
+</html>

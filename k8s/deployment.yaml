@@ -6,7 +6,7 @@ metadata:
   labels:
     app: django-app
 spec:
-  replicas: 1
+  replicas: 2 # 2 réplicas para alta disponibilidad
   selector:
     matchLabels:
       app: django-app
@@ -21,17 +21,41 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
+        env:
+        - name: DJANGO_DEBUG
+          value: "False"
+        - name: ALLOWED_HOSTS
+          value: "*"
+        - name: CORS_ALLOWED_ORIGINS
+          value: "http://localhost:3000,https://sweetwitch.com"
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: SECRET_KEY
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: DATABASE_URL
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
         livenessProbe:
           httpGet:
             path: /healthz
             port: 8000
-          initialDelaySeconds: 5
+          initialDelaySeconds: 10
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /healthz
             port: 8000
-          initialDelaySeconds: 2
+          initialDelaySeconds: 5
           periodSeconds: 5
 ---
 apiVersion: v1
