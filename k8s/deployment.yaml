@@ -6,7 +6,7 @@ metadata:
   labels:
     app: django-app
 spec:
-  replicas: 2 # 2 réplicas para alta disponibilidad
+  replicas: 1
   selector:
     matchLabels:
       app: django-app

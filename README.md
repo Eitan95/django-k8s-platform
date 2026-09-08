@@ -52,3 +52,28 @@ curl -i http://localhost:8080/healthz
 View application logs:
 
 kubectl logs -l app=django-app --tail=50
+
+# Local Development
+
+## Local
+
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+python manage.py runserver
+
+## Docker
+
+docker build -t django-mysite:v1 .
+docker run ...
+
+## Kubernetes
+
+minikube start
+kubectl get nodes
+
+## Argo CD
+
+kubectl apply -f argocd-app.yaml
+kubectl get application -n argocd

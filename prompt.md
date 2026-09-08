@@ -94,7 +94,7 @@ Service: {service}
 Date: {date}
 Notes: {notes}
 
-Location: https://www.google.com/maps?q=20.9367,-89.6577
+Location: https://www.google.com/maps?q=
 
 Requirements:
 
@@ -104,7 +104,7 @@ LOCATION (REQUIRED)
 
 Include a "Get directions" button linking to:
 
-https://www.google.com/maps/dir/?api=1&destination=20.9367,-89.6577
+https://www.google.com/maps/dir/?api=1&destination=
 EXTRA (HIGH CONVERSION)
 
 Include:
