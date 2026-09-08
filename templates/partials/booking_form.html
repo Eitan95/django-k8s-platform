@@ -1,0 +1,128 @@
+<section class="booking-section">
+  <div class="booking-glow"></div>
+  <div class="container">
+    <div class="booking-card">
+      <div class="booking-header">
+        <h2 class="font-display text-glow">INVÓCANOS</h2>
+        <p>Solicita tu ritual vía WhatsApp</p>
+      </div>
+
+      <form id="booking-form">
+        <div class="form-grid">
+          <div class="field">
+            <label class="font-display">Tu Nombre</label>
+            <input id="name" name="name" required minlength="2" placeholder="Condesa Batory" />
+            <p class="error-msg hidden">Se requiere el nombre</p>
+          </div>
+
+          <div class="field">
+            <label class="font-display">Número de Teléfono</label>
+            <input id="phone" name="phone" type="tel" required minlength="10" placeholder="+52 999 000 0000" />
+            <p class="error-msg hidden">Se requiere un número de teléfono válido</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label class="font-display">Fecha Deseada</label>
+            <input id="date" name="date" type="date" required style="color-scheme: dark;" />
+            <p class="error-msg hidden">Por favor selecciona una fecha</p>
+          </div>
+
+          <div class="field">
+            <label class="font-display">Servicio</label>
+            <select id="service" name="service" required>
+              <option value="">Elige un ritual...</option>
+              <option value="Rituales de Acrílico">Rituales de Acrílico</option>
+              <option value="Gel Encantado">Gel Encantado</option>
+              <option value="Arte Oscuro">Arte Oscuro</option>
+              <option value="Diseños del Horror">Diseños del Horror</option>
+              <option value="French Sangrienta">French Sangrienta</option>
+              <option value="Extensiones de Medianoche">Extensiones de Medianoche</option>
+            </select>
+            <p class="error-msg hidden">Por favor selecciona un servicio</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="font-display">Deseos Oscuros (Notas)</label>
+          <textarea id="notes" name="notes" rows="4" placeholder="Describe tu visión, temas de horror específicos, colores..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary btn-full">Confirmar Ritual vía WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .booking-section { padding: 6rem 1.5rem; position: relative; }
+  .booking-glow {
+    position: absolute; top: 0; right: 0; width: 800px; height: 800px;
+    background: rgba(127, 29, 29, 0.05); border-radius: 50%;
+    filter: blur(120px); transform: translate(33%, -50%); pointer-events: none;
+  }
+  .booking-card {
+    max-width: 900px; margin: 0 auto; position: relative; z-index: 1;
+    background-color: var(--card); border: 1px solid var(--border);
+    border-radius: 1.5rem; padding: 2rem; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  }
+  .booking-header { text-align: center; margin-bottom: 2.5rem; }
+  .booking-header h2 { font-size: 2rem; margin-bottom: 0.75rem; }
+  .booking-header p { color: var(--muted); }
+  .form-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+  @media (min-width: 768px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+  .field label {
+    display: block; font-size: 0.85rem; letter-spacing: 0.05em;
+    text-transform: uppercase; color: rgba(245,245,245,0.8); margin-bottom: 0.5rem;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%; background-color: rgba(0,0,0,0.5); border: 1px solid var(--border);
+    border-radius: 0.75rem; padding: 0.75rem 1rem; color: var(--fg); font-size: 1rem;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary);
+  }
+  .field textarea { resize: none; margin-top: 0; }
+  .field { margin-bottom: 1.5rem; }
+  .error-msg { color: var(--primary); font-size: 0.75rem; margin-top: 0.25rem; }
+  .hidden { display: none; }
+  .btn-full { width: 100%; margin-top: 0.5rem; }
+</style>
+
+<script>
+  document.getElementById("booking-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const form = e.target;
+    let valid = true;
+    form.querySelectorAll(".error-msg").forEach((el) => el.classList.add("hidden"));
+
+    form.querySelectorAll("[required]").forEach((field) => {
+      if (!field.value || field.value.trim().length < (field.minLength > 0 ? field.minLength : 1)) {
+        valid = false;
+        const msg = field.closest(".field").querySelector(".error-msg");
+        if (msg) msg.classList.remove("hidden");
+      }
+    });
+    if (!valid) return;
+
+    const data = {
+      name: form.name.value,
+      phone: form.phone.value,
+      date: form.date.value,
+      service: form.service.value,
+      notes: form.notes.value,
+    };
+
+    const message =
+      `Hola, quiero agendar una cita 🦇\n\n` +
+      `Nombre: ${data.name}\n` +
+      `Servicio: ${data.service}\n` +
+      `Fecha: ${data.date}\n` +
+      `Teléfono: ${data.phone}\n` +
+      `Notas: ${data.notes || "Ninguna"}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/529992243073?text=${encodedMessage}`, "_blank");
+  });
+</script>

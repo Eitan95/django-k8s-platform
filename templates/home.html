@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="w-full min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-white">
+  {% include "partials/hero.html" %}
+
+  {% comment %} 
+  Secciones pendientes para incluir más adelante:
+  <section id="services"> ... </section>
+  <section id="reviews"> ... </section>
+  {% endcomment %}
+
+  {% include "partials/gallery.html" %}
+
+  <section id="booking">
+    {% include "partials/booking_form.html" %}
+  </section>
+</main>
+
+{% include "partials/floating_whatsapp.html" %}
+{% endblock %}

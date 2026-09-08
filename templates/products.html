@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<main class="products-page">
+  <div class="products-card">
+    <p class="eyebrow">Productos</p>
+    <h1 class="font-display">Próximamente</h1>
+    <p class="products-copy">
+      La gestión de productos se realizará desde el backend y la experiencia de tienda se irá expandiendo en próximas iteraciones.
+    </p>
+  </div>
+</main>
+<style>
+  .products-page { min-height: 100vh; padding: 6rem 1.5rem; display: flex; justify-content: center; }
+  .products-card {
+    max-width: 700px; width: 100%; background-color: var(--card);
+    border: 1px solid var(--border); border-radius: 0.75rem; padding: 2rem;
+  }
+  .eyebrow {
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.3em;
+    color: var(--primary); margin-bottom: 0.75rem;
+  }
+  .products-page h1 { font-size: 1.75rem; }
+  .products-copy { color: var(--muted); margin-top: 1rem; line-height: 1.7; }
+</style>
+{% endblock %}

@@ -1,0 +1,144 @@
+Act as a senior web designer specialized in UX/UI, conversion rate optimization (CRO), and emotional copywriting.
+
+Generate a complete landing page in HTML5 using Tailwind CSS via CDN for a nail appointment business with the following aesthetic:
+
+Elegant gothic
+Premium Halloween
+Inspired by horror films (slasher, vampires, witches, classic horror)
+Dark / witchy / vamp / luxury horror style
+OBJECTIVE
+
+Design a landing page that:
+
+Maximizes conversions into bookings (primary goal: WhatsApp contact)
+Feels dark, elegant, and premium (avoid childish or kitsch tone)
+Looks like a high-end niche beauty brand
+REQUIRED STRUCTURE
+1. HERO SECTION
+Dark gradient background (black, deep red, purple)
+Subtle overlay (blur or noise effect)
+Strong headline (sophisticated horror tone)
+Persuasive subheadline (benefit + emotion)
+Primary CTA: "Book your appointment"
+Secondary CTA: "View designs"
+Primary button must open WhatsApp
+Include hover microinteractions
+2. SERVICES
+
+Include 4–6 services:
+
+Acrylic nails
+Gel nails
+Thematic nail art
+Custom horror designs
+
+Each service must include:
+
+Creative title
+Short description using dark metaphors (blood, night, vampires, witches)
+
+Design:
+
+Cards with hover effects (scale, shadow, subtle red/purple glow)
+3. GALLERY (MOCK)
+Responsive grid layout
+Use placeholder images (Unsplash or similar)
+Each image must have hover overlay with text
+Categories:
+Gothic
+Slasher
+Vintage horror
+Witch aesthetic
+4. BOOKING FORM
+
+Fields:
+
+Name
+Phone / WhatsApp
+Date
+Service (select)
+Notes
+
+Requirements:
+
+Dark elegant design
+Input focus states with red/purple glow
+CTA button: "Book now"
+
+IMPORTANT:
+The button must trigger a JavaScript function that:
+
+Collects form data
+Builds a dynamic message
+Opens WhatsApp with pre-filled message
+5. TESTIMONIALS
+2–3 fictional reviews
+Tone: dark, stylish, slightly dramatic
+Example tone: "I felt like a vampire queen"
+Cards with dark glassmorphism style
+6. FOOTER
+Social media icons
+Business hours
+Location section
+Button: "Get directions"
+WHATSAPP INTEGRATION (REQUIRED)
+Use: https://wa.me/
+Example number: 529
+
+Create a JavaScript function that generates this message dynamically:
+
+Hello, I want to book an appointment
+
+Name: {name}
+Service: {service}
+Date: {date}
+Notes: {notes}
+
+Location: https://www.google.com/maps?q=20.9367,-89.6577
+
+Requirements:
+
+Use encodeURIComponent
+Open in a new tab
+LOCATION (REQUIRED)
+
+Include a "Get directions" button linking to:
+
+https://www.google.com/maps/dir/?api=1&destination=20.9367,-89.6577
+EXTRA (HIGH CONVERSION)
+
+Include:
+
+Floating WhatsApp button (bottom right)
+Hover animation
+Clear visible icon
+DESIGN AND UX
+Fully responsive
+Use elegant typography (Google Fonts allowed)
+Color palette:
+Black: #0a0a0a
+Dark red: #7f1d1d
+Purple: #4c1d95
+Use gradients, soft shadows, subtle glow
+Smooth hover transitions
+Optional fade-in effects using Tailwind utilities
+TECHNICAL REQUIREMENTS
+Tailwind CSS via CDN
+Clean, well-structured HTML
+No frameworks
+Vanilla JavaScript only for:
+WhatsApp logic
+Basic interactivity
+Include comments for each section
+COPYWRITING
+Immersive, sensory, elegant language
+Inspired by:
+Vampires
+Witchcraft
+Cinematic horror
+Avoid childish tone
+Focus on desire, aesthetics, exclusivity
+IMPORTANT
+Do not explain anything
+Do not include text outside the code
+Output only the full HTML file ready to use

@@ -1,0 +1,91 @@
+<!-- Conversión de Navbar.tsx.
+     - useState(scrolled)/useEffect(scroll listener) -> JS vanilla que agrega/quita clases al hacer scroll.
+     - useState(open) para el menú móvil -> toggle de una clase "hidden".
+     - AnimatePresence/motion -> transition-all de Tailwind (sin fade en el drawer, pero visualmente similar).
+     - Link de wouter -> <a href> normal; Django recarga la página en vez de navegación SPA. -->
+<nav id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b bg-transparent border-transparent py-6">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+    <a href="{% url 'home' %}" class="flex items-center gap-2 cursor-pointer group">
+      <!-- Droplet (lucide) -->
+      <svg class="w-5 h-5 text-primary group-hover:text-accent transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2.69 17.66 8.35a8 8 0 1 1-11.32 0z"/>
+      </svg>
+      <span class="font-display font-bold text-xl md:text-2xl tracking-widest text-foreground">Sweet Witch</span>
+    </a>
+
+    <!-- Desktop -->
+    <div class="hidden md:flex items-center gap-8">
+      <button data-scroll="services" class="nav-scroll-link text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors font-display">Servicios</button>
+      <button data-scroll="gallery" class="nav-scroll-link text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors font-display">Galería</button>
+      <button data-scroll="reviews" class="nav-scroll-link text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors font-display">Opiniones</button>
+      <a href="{% url 'products' %}" class="text-sm uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors font-display">Tienda</a>
+      <button data-scroll="booking" class="nav-scroll-link px-5 py-2 border border-primary/50 text-primary font-display text-sm uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300 glow-red">
+        Agenda ahora
+      </button>
+    </div>
+
+    <!-- Mobile burger -->
+    <button id="nav-burger" class="md:hidden text-muted-foreground hover:text-primary transition-colors p-1" aria-label="Menú">
+      <svg id="icon-menu" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+      <svg id="icon-close" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="nav-drawer" class="hidden fixed inset-x-0 top-[65px] z-40 bg-background/98 backdrop-blur-md border-b border-border md:hidden">
+  <div class="flex flex-col px-6 py-6 gap-1">
+    <button data-scroll="services" class="nav-scroll-link text-left py-3 text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors font-display border-b border-border/50">Servicios</button>
+    <button data-scroll="gallery" class="nav-scroll-link text-left py-3 text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors font-display border-b border-border/50">Galería</button>
+    <button data-scroll="reviews" class="nav-scroll-link text-left py-3 text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors font-display border-b border-border/50">Opiniones</button>
+    <a href="{% url 'products' %}" class="py-3 text-sm uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors font-display border-b border-border/50">Tienda</a>
+    <button data-scroll="booking" class="nav-scroll-link mt-4 px-5 py-3 border border-primary/50 text-primary font-display text-sm uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300 text-center">
+      Agenda ahora
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const nav = document.getElementById("navbar");
+    const drawer = document.getElementById("nav-drawer");
+    const burger = document.getElementById("nav-burger");
+    const iconMenu = document.getElementById("icon-menu");
+    const iconClose = document.getElementById("icon-close");
+    const isHome = window.location.pathname === "/";
+    let open = false;
+
+    function setScrolledStyle(scrolled) {
+      if (scrolled || open) {
+        nav.className = "fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b bg-background/95 backdrop-blur-md border-white/5 py-4 shadow-lg";
+      } else {
+        nav.className = "fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b bg-transparent border-transparent py-6";
+      }
+    }
+
+    window.addEventListener("scroll", () => setScrolledStyle(window.scrollY > 50));
+
+    function toggleDrawer() {
+      open = !open;
+      drawer.classList.toggle("hidden", !open);
+      iconMenu.classList.toggle("hidden", open);
+      iconClose.classList.toggle("hidden", !open);
+      setScrolledStyle(window.scrollY > 50);
+    }
+    burger.addEventListener("click", toggleDrawer);
+
+    document.querySelectorAll(".nav-scroll-link").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.scroll;
+        if (open) toggleDrawer();
+        if (!isHome) {
+          window.location.href = `/#${id}`;
+          return;
+        }
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+  })();
+</script>

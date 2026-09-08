@@ -1,0 +1,54 @@
+<!-- Conversión de Hero.tsx. Los motion.p/motion.h1/motion.div con delays escalonados
+     (0.2s, 0.4s, 0.6s, 0.8s) se replican con una animación CSS simple + animation-delay. -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+  <div class="absolute inset-0 bg-gradient-to-b from-primary/10 via-background to-background z-0"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center mt-20">
+    <p class="hero-fade font-display text-primary text-sm md:text-base tracking-[0.3em] uppercase mb-4" style="animation-delay:0.2s">
+      Donde la elegancia se encuentra con lo macabro
+    </p>
+
+    <h1 class="hero-fade font-display text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-tight mb-8 text-glow" style="animation-delay:0.4s">
+      Belleza en <br/>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">las sombras</span>
+    </h1>
+
+    <p class="hero-fade text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed" style="animation-delay:0.6s">
+      Estudio de uñas con estilo alternativo, manicure y pedicure con excelente trato y cuidados, así como un lugar lleno de decoración y venta de algunos artículos spooky
+    </p>
+
+    <div class="hero-fade flex flex-col sm:flex-row items-center justify-center gap-6" style="animation-delay:0.8s">
+      <button type="button" data-scroll="booking"
+        class="hero-scroll-btn w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground font-display tracking-widest uppercase text-sm font-bold shadow-[0_0_30px_-5px_#7f1d1d] hover:shadow-[0_0_40px_-5px_#7f1d1d] hover:-translate-y-1 transition-all duration-300 inline-block rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent">
+        Agenda tu Ritual
+      </button>
+
+      <button type="button" data-scroll="gallery"
+        class="hero-scroll-btn w-full sm:w-auto px-8 py-4 bg-transparent border border-white/20 text-foreground font-display tracking-widest uppercase text-sm hover:border-accent hover:bg-accent/10 transition-all duration-300 cursor-pointer rounded-lg focus:outline-none focus:ring-2 focus:ring-accent">
+        Ver Diseños
+      </button>
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10"></div>
+</section>
+
+<style>
+  @keyframes hero-fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-fade {
+    opacity: 0;
+    animation: hero-fade-in 0.8s ease-out forwards;
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".hero-scroll-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const el = document.getElementById(btn.dataset.scroll);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    });
+  });
+</script>

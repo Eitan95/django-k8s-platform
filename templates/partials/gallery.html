@@ -1,0 +1,47 @@
+<!-- Conversión de Gallery.tsx.
+     El array "images" en React estaba hardcodeado en el componente; aquí lo paso como
+     variable de contexto "gallery_images" desde views.py (ver comentario en views.py),
+     para que el día que tengas un modelo Django de imágenes solo cambies la vista, no el template.
+     whileInView de framer-motion -> reemplazado por un IntersectionObserver simple. -->
+<section id="gallery" class="py-24 bg-black relative border-y border-white/5">
+  <div class="max-w-[1600px] mx-auto px-4 md:px-8">
+    <div class="text-center mb-16">
+      <h2 class="font-display text-3xl md:text-5xl text-foreground mb-4">EL ARCHIVO</h2>
+      <p class="text-muted-foreground font-display tracking-widest uppercase text-sm">
+        Visitanos en Instagram para ver más diseños y seguir nuestras últimas creaciones.
+      </p>
+    </div>
+
+    <div class="columns-1 sm:columns-2 lg:columns-4 gap-4 space-y-4">
+      {% for img in gallery_images %}
+      <div class="gallery-item relative group overflow-hidden rounded-xl break-inside-avoid opacity-0 scale-95 transition-all duration-500">
+        <img src="{{ img.url }}" alt="{{ img.title }}"
+          class="w-full h-auto object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out grayscale-[0.3] group-hover:grayscale-0" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-6">
+          <span class="font-display text-white tracking-widest uppercase text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+            {{ img.title }}
+          </span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Reemplaza whileInView de framer-motion: cuando el elemento entra en pantalla, se revela.
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll("#gallery .gallery-item");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const idx = [...items].indexOf(entry.target);
+          entry.target.style.transitionDelay = `${(idx % 4) * 100}ms`;
+          entry.target.classList.remove("opacity-0", "scale-95");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "-50px" });
+    items.forEach((el) => observer.observe(el));
+  });
+</script>
