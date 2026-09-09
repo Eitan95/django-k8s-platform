@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: django
-        image: django-mysite:v1
+        image: django-mysite:v2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
