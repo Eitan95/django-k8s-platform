@@ -44,7 +44,9 @@ kubectl get application django-k8s-platform -n argocd
 # 🧪 Healthcheck & Diagnostics
 Port-Forward to local machine:
 
-
+kubectl port-forward svc/argocd-server -n argocd 8081:443
+kubectl -n argocd get secret argocd-initial-admin-secret \
+  -o jsonpath="{.data.password}" | base64 -d && echo
 kubectl port-forward svc/django-service 8080:80
 Test the /healthz endpoint:
 
