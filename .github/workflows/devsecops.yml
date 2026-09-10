@@ -1,0 +1,22 @@
+name: DevSecOps Local Pipeline
+
+on: [push, pull_request]
+
+jobs:
+  devsecops-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v4
+
+      # 1. SAST: Gitleaks en contenedor (--no-git escanea en el directorio)
+      - name: Gitleaks Scan
+        run: docker run --rm -v $(pwd):/path zricethezav/gitleaks:latest detect --source="/path" --no-git -v
+
+      # 2. IaC & FS Scan: Trivy en contenedor
+      - name: Trivy Scan
+        run: docker run --rm -v $(pwd):/root/src aquasec/trivy:latest fs /root/src --severity HIGH,CRITICAL
+
+      # 3. DAST: OWASP ZAP Baseline Scan 
+      - name: OWASP ZAP Baseline Scan
+        run: docker run --rm -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://host.docker.internal:8000 -I
